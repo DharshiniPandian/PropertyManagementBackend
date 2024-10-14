@@ -2,15 +2,51 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('master_component_based_on', {
+    await queryInterface.createTable('unit_details', {
       id: {
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
         allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
+        primaryKey: true
       },
-      component_name: {
+      unit_name: {
         type: Sequelize.STRING,
+        allowNull: false
+      },
+      unit_description: {
+        type: Sequelize.TEXT,
+        allowNull: false
+      },
+      price:  {
+        type: Sequelize.DECIMAL(10, 2),
+        allowNull: false,
+      },
+      path_of_thumbnail: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      bedroom_count: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      bath_count: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      house_type: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      area: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      address: {
+        type: Sequelize.TEXT,
+        allowNull: false
+      },
+      unit_no: {
+        type: Sequelize.INTEGER,
         allowNull: false
       },
       is_active: {
@@ -64,6 +100,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('master_component_based_on');
+    await queryInterface.dropTable('unit_details');
   }
 };

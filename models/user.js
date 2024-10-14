@@ -94,23 +94,170 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASCADE',
       });
 
-      User.hasMany(models.MasterComponent, {
+      User.hasMany(models.MasterComponentBasedOn, {
         foreignKey: 'created_by',
         as: 'master_component_createdby',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       });
 
-      User.hasMany(models.MasterComponent, {
+      User.hasMany(models.MasterComponentBasedOn, {
         foreignKey: 'updated_by',
         as: 'master_component_updatedby',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       });
 
-      User.hasMany(models.MasterComponent, {
+      User.hasMany(models.MasterComponentBasedOn, {
         foreignKey: 'deleted_by',
         as: 'master_component_deletedby',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+
+      User.hasMany(models.Unit, {
+        foreignKey: 'created_by',
+        as: 'unit_createdby',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+
+      User.hasMany(models.Unit, {
+        foreignKey: 'updated_by',
+        as: 'unit_updatedby',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+
+      User.hasMany(models.Unit, {
+        foreignKey: 'deleted_by',
+        as: 'unit_deletedby',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+
+      User.hasMany(models.UnitAddOnsAddOns, {
+        foreignKey: 'created_by',
+        as: 'unitaddon_createdby',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+
+      User.hasMany(models.UnitAddOnsAddOns, {
+        foreignKey: 'updated_by',
+        as: 'unitaddon_updatedby',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+
+      User.hasMany(models.UnitAddOnsAddOns, {
+        foreignKey: 'deleted_by',
+        as: 'unitaddon_deletedby',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+
+      User.hasMany(models.UnitPhoto, {
+        foreignKey: 'created_by',
+        as: 'unitphoto_createdby',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+
+      User.hasMany(models.UnitPhoto, {
+        foreignKey: 'updated_by',
+        as: 'unitphoto_updatedby',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+
+      User.hasMany(models.UnitPhoto, {
+        foreignKey: 'deleted_by',
+        as: 'unitphoto_deletedby',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+
+      User.hasMany(models.Quotation, {
+        foreignKey: 'created_by',
+        as: 'quotation_createdby',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+
+      User.hasMany(models.Quotation, {
+        foreignKey: 'updated_by',
+        as: 'quotation_updatedby',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+
+      User.hasMany(models.Quotation, {
+        foreignKey: 'deleted_by',
+        as: 'quotation_deletedby',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+
+      User.hasMany(models.QuotedUnit, {
+        foreignKey: 'created_by',
+        as: 'quotedunit_createdby',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+
+      User.hasMany(models.QuotedUnit, {
+        foreignKey: 'updated_by',
+        as: 'quotedunit_updatedby',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+
+      User.hasMany(models.QuotedUnit, {
+        foreignKey: 'deleted_by',
+        as: 'quotedunit_deletedby',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+
+      User.hasMany(models.QuotedUnitAddOn, {
+        foreignKey: 'created_by',
+        as: 'quoted_unitaddon_createdby',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+
+      User.hasMany(models.QuotedUnitAddOn, {
+        foreignKey: 'updated_by',
+        as: 'quoted_unitaddon_updatedby',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+
+      User.hasMany(models.QuotedUnitAddOn, {
+        foreignKey: 'deleted_by',
+        as: 'quoted_unitaddon_deletedby',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+
+      User.hasMany(models.QuotedUnitComponent, {
+        foreignKey: 'created_by',
+        as: 'quoted_unitcomponent_createdby',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+
+      User.hasMany(models.QuotedUnitComponent, {
+        foreignKey: 'updated_by',
+        as: 'quoted_unitcomponent_updatedby',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+
+      User.hasMany(models.QuotedUnitComponent, {
+        foreignKey: 'deleted_by',
+        as: 'quoted_unitcomponent_deletedby',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       });

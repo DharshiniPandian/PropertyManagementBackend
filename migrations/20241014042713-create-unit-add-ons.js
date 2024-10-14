@@ -2,16 +2,46 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('master_component_based_on', {
+    await queryInterface.createTable('unit_addons', {
       id: {
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
         allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
+        primaryKey: true
       },
-      component_name: {
-        type: Sequelize.STRING,
-        allowNull: false
+      unit_id: {
+        type: Sequelize.UUID,
+        allowNull: false,
+        references: {
+          model: 'unit_details', 
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
+      },
+      amenity_id: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'master_amenities', 
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
+      },
+      utility_id: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'master_utilities', 
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
+      },
+      price:  {
+        type: Sequelize.DECIMAL(10, 2),
+        allowNull: false,
       },
       is_active: {
         type: Sequelize.BOOLEAN,
@@ -64,6 +94,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('master_component_based_on');
+    await queryInterface.dropTable('unit_addons');
   }
 };

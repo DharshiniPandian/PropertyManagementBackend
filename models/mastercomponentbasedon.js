@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class MasterAmenity extends Model {
+  class MasterComponentBasedOn extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,46 +11,39 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      MasterAmenity.belongsTo(models.User, {
+      MasterComponentBasedOn.belongsTo(models.User, {
         foreignKey: 'created_by',
         as: 'createdby',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       });
-      MasterAmenity.belongsTo(models.User, {
+      MasterComponentBasedOn.belongsTo(models.User, {
         foreignKey: 'updated_by',
         as: 'updatedby',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       });
-      MasterAmenity.belongsTo(models.User, {
+      MasterComponentBasedOn.belongsTo(models.User, {
         foreignKey: 'deleted_by',
         as: 'deletedby',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       }); 
-      MasterAmenity.hasMany(models.UnitAddOns, {
-        foreignKey: 'amenity_id',
-        as: 'amenity',
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-      }); 
-
-      MasterAmenity.hasMany(models.QuotedUnitAddOn, {
-        foreignKey: 'amenity_id',
-        as: 'quoted_unit_amenity',
+      MasterComponentBasedOn.hasMany(models.QuotedUnitComponent, {
+        foreignKey: 'component_id',
+        as: 'component',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       }); 
     }
   }
-  MasterAmenity.init({
+  MasterComponentBasedOn.init({
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
      },
-     amenity_name: {
+     component_name: {
        type: DataTypes.STRING,
        allowNull: false,
        validate: {
@@ -98,13 +91,13 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {
     sequelize,
-    modelName: 'MasterAmenity',
-    tableName: 'master_amenities',
+    modelName: 'MasterComponentBasedOn',
+    tableName:'master_component_based_on',
     timestamps: true,
     paranoid: true,
     createdAt: 'created_at', 
     updatedAt: 'updated_at', 
     deletedAt: 'deleted_at', 
   });
-  return MasterAmenity;
+  return MasterComponentBasedOnBasedOn;
 };

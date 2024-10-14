@@ -2,16 +2,32 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('master_component_based_on', {
+    await queryInterface.createTable('quoted_units', {
       id: {
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
         allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
+        primaryKey: true
       },
-      component_name: {
-        type: Sequelize.STRING,
-        allowNull: false
+      quotation_id: {
+        type: Sequelize.UUID,
+        allowNull: false,
+        references: {
+          model: 'quotations', 
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
+      },
+      unit_id: {
+        type: Sequelize.UUID,
+        allowNull: false,
+        references: {
+          model: 'unit_details', 
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       is_active: {
         type: Sequelize.BOOLEAN,
@@ -64,6 +80,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('master_component_based_on');
+    await queryInterface.dropTable('quoted_units');
   }
 };

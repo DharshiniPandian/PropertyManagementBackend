@@ -29,6 +29,19 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       }); 
+      MasterUtility.hasMany(models.UnitAddOns, {
+        foreignKey: 'utility_id',
+        as: 'utility',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      }); 
+
+      MasterUtility.hasMany(models.QuotedUnitAddOn, {
+        foreignKey: 'utility_id',
+        as: 'quoyed_unitaddon_utility',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      }); 
     }
   }
   MasterUtility.init({

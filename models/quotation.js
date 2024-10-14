@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class MasterComponent extends Model {
+  class Quotation extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,49 +11,49 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      MasterComponent.belongsTo(models.User, {
+      Quotation.belongsTo(models.User, {
         foreignKey: 'created_by',
         as: 'createdby',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       });
-      MasterComponent.belongsTo(models.User, {
+      Quotation.belongsTo(models.User, {
         foreignKey: 'updated_by',
         as: 'updatedby',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       });
-      MasterComponent.belongsTo(models.User, {
+      Quotation.belongsTo(models.User, {
         foreignKey: 'deleted_by',
         as: 'deletedby',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       }); 
+      Quotation.hasMany(models.QuotedUnit, {
+        foreignKey: 'quotation_id',
+        as: 'quotation',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
     }
   }
-  MasterComponent.init({
+  Quotation.init({
     id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4, 
       primaryKey: true,
-     },
-     component_name: {
-       type: DataTypes.STRING,
-       allowNull: false,
-       validate: {
-         notEmpty: true,
-       }
-     },
-     is_active: {
-       type: DataTypes.BOOLEAN,
-       defaultValue: true,
-       validate: {
-         isIn: [[true, false]],
-       }
-     },
-     created_by: {
-      type: DataTypes.INTEGER,
       allowNull: false,
+    }, 
+    is_active: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+      validate: {
+        isIn: [[true, false]],
+      }
+    },
+    created_by: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
       references: {
         model: 'users', 
         key: 'id'
@@ -61,7 +61,7 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE'
       
-    },
+    }, 
     updated_by: {
       type: DataTypes.INTEGER,
       allowNull: true,
@@ -85,13 +85,13 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {
     sequelize,
-    modelName: 'MasterComponent',
-    tableName:'master_component',
+    modelName: 'Quotation',
+    tableName: 'quotations',
     timestamps: true,
     paranoid: true,
     createdAt: 'created_at', 
     updatedAt: 'updated_at', 
     deletedAt: 'deleted_at', 
   });
-  return MasterComponent;
+  return Quotation;
 };

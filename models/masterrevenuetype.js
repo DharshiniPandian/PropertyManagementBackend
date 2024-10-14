@@ -29,6 +29,13 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       }); 
+
+      MasterRevenueType.hasMany(models.QuotedUnitComponent, {
+        foreignKey: 'revenue_id',
+        as: 'revenue',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      }); 
     }
   }
   MasterRevenueType.init({

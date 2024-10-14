@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class MasterAmenity extends Model {
+  class UnitPhoto extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,62 +11,67 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      MasterAmenity.belongsTo(models.User, {
+      UnitPhoto.belongsTo(models.User, {
         foreignKey: 'created_by',
-        as: 'createdby',
+        as: 'UnitPhotocreatedby',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       });
-      MasterAmenity.belongsTo(models.User, {
+      UnitPhoto.belongsTo(models.User, {
         foreignKey: 'updated_by',
-        as: 'updatedby',
+        as: 'UnitPhotoupdatedby',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       });
-      MasterAmenity.belongsTo(models.User, {
+      UnitPhoto.belongsTo(models.User, {
         foreignKey: 'deleted_by',
         as: 'deletedby',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       }); 
-      MasterAmenity.hasMany(models.UnitAddOns, {
-        foreignKey: 'amenity_id',
-        as: 'amenity',
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-      }); 
-
-      MasterAmenity.hasMany(models.QuotedUnitAddOn, {
-        foreignKey: 'amenity_id',
-        as: 'quoted_unit_amenity',
+      UnitPhoto.belongsTo(models.Unit, {
+        foreignKey: 'unit_id',
+        as: 'unit',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       }); 
     }
   }
-  MasterAmenity.init({
+  UnitPhoto.init({
     id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4, 
       primaryKey: true,
-     },
-     amenity_name: {
-       type: DataTypes.STRING,
-       allowNull: false,
-       validate: {
-         notEmpty: true,
-       }
-     },
-     is_active: {
-       type: DataTypes.BOOLEAN,
-       defaultValue: true,
-       validate: {
-         isIn: [[true, false]],
-       }
-     },
-     created_by: {
-      type: DataTypes.INTEGER,
       allowNull: false,
+    }, 
+    unit_id: {
+      type: DataTypes.UUID,
+      allowNull: true,
+      references: {
+        model: 'units', 
+        key: 'id'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE'
+      
+    }, 
+    photo_path: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      }
+    },
+    is_active: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+      validate: {
+        isIn: [[true, false]],
+      }
+    },
+    created_by: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
       references: {
         model: 'users', 
         key: 'id'
@@ -74,7 +79,7 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE'
       
-    },
+    }, 
     updated_by: {
       type: DataTypes.INTEGER,
       allowNull: true,
@@ -98,13 +103,13 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {
     sequelize,
-    modelName: 'MasterAmenity',
-    tableName: 'master_amenities',
+    modelName: 'UnitPhotoPhoto',
+    tableName: 'UnitPhoto_photos',
     timestamps: true,
     paranoid: true,
     createdAt: 'created_at', 
     updatedAt: 'updated_at', 
     deletedAt: 'deleted_at', 
   });
-  return MasterAmenity;
+  return UnitPhoto;
 };

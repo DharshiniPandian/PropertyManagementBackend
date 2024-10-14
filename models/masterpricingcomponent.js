@@ -29,6 +29,12 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       }); 
+      MasterPricingComponent.hasMany(models.QuotedUnitComponent, {
+        foreignKey: 'pricing_id',
+        as: 'pricing',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      }); 
     }
   }
   MasterPricingComponent.init({

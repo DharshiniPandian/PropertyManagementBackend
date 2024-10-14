@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class MasterAmenity extends Model {
+  class UnitAddOnsAddOns extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,62 +11,97 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      MasterAmenity.belongsTo(models.User, {
+      UnitAddOns.belongsTo(models.User, {
         foreignKey: 'created_by',
         as: 'createdby',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       });
-      MasterAmenity.belongsTo(models.User, {
+      UnitAddOns.belongsTo(models.User, {
         foreignKey: 'updated_by',
         as: 'updatedby',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       });
-      MasterAmenity.belongsTo(models.User, {
+      UnitAddOns.belongsTo(models.User, {
         foreignKey: 'deleted_by',
         as: 'deletedby',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       }); 
-      MasterAmenity.hasMany(models.UnitAddOns, {
-        foreignKey: 'amenity_id',
-        as: 'amenity',
+      UnitAddOns.belongsTo(models.Unit, {
+        foreignKey: 'unit_id',
+        as: 'unitid',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-      }); 
-
-      MasterAmenity.hasMany(models.QuotedUnitAddOn, {
+      });
+      UnitAddOns.belongsTo(models.MasterAmenity, {
         foreignKey: 'amenity_id',
-        as: 'quoted_unit_amenity',
+        as: 'amenityid',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-      }); 
+      });
+      UnitAddOns.belongsTo(models.MasterUtility, {
+        foreignKey: 'utility_id',
+        as: 'utility',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
     }
   }
-  MasterAmenity.init({
+  UnitAddOnsAddOns.init({
     id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4, 
       primaryKey: true,
-     },
-     amenity_name: {
-       type: DataTypes.STRING,
-       allowNull: false,
-       validate: {
-         notEmpty: true,
-       }
-     },
-     is_active: {
-       type: DataTypes.BOOLEAN,
-       defaultValue: true,
-       validate: {
-         isIn: [[true, false]],
-       }
-     },
-     created_by: {
-      type: DataTypes.INTEGER,
       allowNull: false,
+    }, 
+    unit_id: {
+      type: DataTypes.UUID,
+      allowNull: true,
+      references: {
+        model: 'units', 
+        key: 'id'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE'
+      
+    }, 
+    amenity_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'master_amenities', 
+        key: 'id'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE'
+      
+    },
+    utility_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'master_utilities', 
+        key: 'id'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE'
+    },
+    price:  {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+    },
+    is_active: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+      validate: {
+        isIn: [[true, false]],
+      }
+    },
+    created_by: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
       references: {
         model: 'users', 
         key: 'id'
@@ -74,7 +109,7 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE'
       
-    },
+    }, 
     updated_by: {
       type: DataTypes.INTEGER,
       allowNull: true,
@@ -98,13 +133,13 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {
     sequelize,
-    modelName: 'MasterAmenity',
-    tableName: 'master_amenities',
+    modelName: 'UnitAddOnsAddOns',
+    tableName: 'UnitAddOns_addons',
     timestamps: true,
     paranoid: true,
     createdAt: 'created_at', 
     updatedAt: 'updated_at', 
     deletedAt: 'deleted_at', 
   });
-  return MasterAmenity;
+  return UnitAddOnsAddOns;
 };

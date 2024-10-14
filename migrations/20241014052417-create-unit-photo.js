@@ -2,14 +2,24 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('master_component_based_on', {
+    await queryInterface.createTable('unit_photos', {
       id: {
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
         allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
+        primaryKey: true
       },
-      component_name: {
+      unit_id: {
+        type: Sequelize.UUID,
+        allowNull: false,
+        references: {
+          model: 'unit_details', 
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
+      },
+      photo_path: {
         type: Sequelize.STRING,
         allowNull: false
       },
@@ -64,6 +74,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('master_component_based_on');
+    await queryInterface.dropTable('unit_photos');
   }
 };
