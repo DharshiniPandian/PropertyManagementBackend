@@ -3,76 +3,83 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class MasterPricingComponent extends Model {
+  class MasterPricingComponentMapping extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
-      MasterPricingComponent.belongsTo(models.User, {
+      MasterPricingComponentMapping.belongsTo(models.User, {
         foreignKey: 'created_by',
         as: 'createdby',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       });
-      MasterPricingComponent.belongsTo(models.User, {
+      MasterPricingComponentMapping.belongsTo(models.User, {
         foreignKey: 'updated_by',
         as: 'updatedby',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       });
-      MasterPricingComponent.belongsTo(models.User, {
+      MasterPricingComponentMapping.belongsTo(models.User, {
         foreignKey: 'deleted_by',
         as: 'deletedby',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       }); 
-      MasterPricingComponent.hasMany(models.QuotedUnitComponent, {
+
+      MasterPricingComponentMapping.belongsTo(models.MasterPricingComponent, {
         foreignKey: 'pricing_id',
         as: 'pricing',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       }); 
-      MasterPricingComponent.hasMany(models.MasterPricingRevenueMapping, {
-        foreignKey: 'pricing_id',
-        as: 'pricingrevenuemapping',
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-      }); 
 
-      MasterPricingComponent.hasMany(models.MasterPricingComponentMapping, {
-        foreignKey: 'pricing_id',
-        as: 'pricingcomponentmapping',
+      MasterPricingComponentMapping.belongsTo(models.MasterComponentBasedOn, {
+        foreignKey: 'component_id',
+        as: 'component',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       }); 
     }
   }
-  MasterPricingComponent.init({
+  MasterPricingComponentMapping.init({
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
      },
-     component_name: {
-       type: DataTypes.STRING,
-       allowNull: false,
-       validate: {
-         notEmpty: true,
-       }
-     },
-     is_active: {
-       type: DataTypes.BOOLEAN,
-       defaultValue: true,
-       validate: {
-         isIn: [[true, false]],
-       }
-     },
-     created_by: {
+    pricing_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: 'master_pricing_components', 
+        key: 'id'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE' 
+    }, 
+    component_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'master_component_based_on', 
+        key: 'id'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE' 
+    }, 
+    is_active: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+      validate: {
+        isIn: [[true, false]],
+      }
+    },
+    created_by: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
       references: {
         model: 'users', 
         key: 'id'
@@ -80,7 +87,7 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE'
       
-    },
+    }, 
     updated_by: {
       type: DataTypes.INTEGER,
       allowNull: true,
@@ -104,13 +111,13 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {
     sequelize,
-    modelName: 'MasterPricingComponent',
-    tableName: 'master_pricing_components',
+    modelName: 'MasterPricingComponentMapping',
+    tableName: 'master_pricing_component_mappings',
     timestamps: true,
     paranoid: true,
     createdAt: 'created_at', 
     updatedAt: 'updated_at', 
     deletedAt: 'deleted_at', 
   });
-  return MasterPricingComponent;
+  return MasterPricingComponentMapping;
 };

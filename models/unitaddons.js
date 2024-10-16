@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class UnitAddOnsAddOns extends Model {
+  class UnitAddOns extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -37,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
       });
       UnitAddOns.belongsTo(models.MasterAmenity, {
         foreignKey: 'amenity_id',
-        as: 'amenityid',
+        as: 'amenity',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       });
@@ -49,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
   }
-  UnitAddOnsAddOns.init({
+  UnitAddOns.init({
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4, 
@@ -133,13 +133,13 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {
     sequelize,
-    modelName: 'UnitAddOnsAddOns',
-    tableName: 'UnitAddOns_addons',
+    modelName: 'UnitAddOns',
+    tableName: 'unit_addons',
     timestamps: true,
     paranoid: true,
     createdAt: 'created_at', 
     updatedAt: 'updated_at', 
     deletedAt: 'deleted_at', 
   });
-  return UnitAddOnsAddOns;
+  return UnitAddOns;
 };

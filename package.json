@@ -8,7 +8,7 @@
     "start": "nodemon server.js",
     "migrate": "npx sequelize db:migrate",
     "undomigration": "npx sequelize db:migrate:undo:all",
-    "seed": ""
+    "seed": "npx sequelize db:seed:all"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +20,7 @@
     "nodemon": "^3.1.7",
     "pg": "^8.13.0",
     "pg-hstore": "^2.3.4",
-    "sequelize": "^6.37.4"
+    "sequelize": "^6.37.4",
+    "uuid": "^10.0.0"
   }
 }

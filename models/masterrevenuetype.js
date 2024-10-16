@@ -36,6 +36,13 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       }); 
+
+      MasterRevenueType.hasMany(models.MasterPricingRevenueMapping, {
+        foreignKey: 'revenue_id',
+        as: 'pricingrevenuemap',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      }); 
     }
   }
   MasterRevenueType.init({

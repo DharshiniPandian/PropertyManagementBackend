@@ -35,6 +35,13 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       }); 
+
+      MasterComponentBasedOn.hasMany(models.MasterPricingComponentMapping, {
+        foreignKey: 'component_id',
+        as: 'pricingcomponent',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      }); 
     }
   }
   MasterComponentBasedOn.init({
@@ -99,5 +106,5 @@ module.exports = (sequelize, DataTypes) => {
     updatedAt: 'updated_at', 
     deletedAt: 'deleted_at', 
   });
-  return MasterComponentBasedOnBasedOn;
+  return MasterComponentBasedOn;
 };

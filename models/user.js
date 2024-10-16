@@ -136,21 +136,21 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASCADE',
       });
 
-      User.hasMany(models.UnitAddOnsAddOns, {
+      User.hasMany(models.UnitAddOns, {
         foreignKey: 'created_by',
         as: 'unitaddon_createdby',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       });
 
-      User.hasMany(models.UnitAddOnsAddOns, {
+      User.hasMany(models.UnitAddOns, {
         foreignKey: 'updated_by',
         as: 'unitaddon_updatedby',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       });
 
-      User.hasMany(models.UnitAddOnsAddOns, {
+      User.hasMany(models.UnitAddOns, {
         foreignKey: 'deleted_by',
         as: 'unitaddon_deletedby',
         onUpdate: 'CASCADE',
@@ -258,6 +258,48 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.QuotedUnitComponent, {
         foreignKey: 'deleted_by',
         as: 'quoted_unitcomponent_deletedby',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+
+      User.hasMany(models.MasterPricingRevenueMapping, {
+        foreignKey: 'created_by',
+        as: 'pricing_revenue_createdby',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+
+      User.hasMany(models.MasterPricingRevenueMapping, {
+        foreignKey: 'updated_by',
+        as: 'pricing_revenue_updatedby',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+
+      User.hasMany(models.MasterPricingRevenueMapping, {
+        foreignKey: 'deleted_by',
+        as: 'pricing_revenue_deletedby',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+
+      User.hasMany(models.MasterPricingComponentMapping, {
+        foreignKey: 'created_by',
+        as: 'pricing_component_createdby',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+
+      User.hasMany(models.MasterPricingComponentMapping, {
+        foreignKey: 'updated_by',
+        as: 'pricing_component_updatedby',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+
+      User.hasMany(models.MasterPricingComponentMapping, {
+        foreignKey: 'deleted_by',
+        as: 'pricing_component_deletedby',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       });

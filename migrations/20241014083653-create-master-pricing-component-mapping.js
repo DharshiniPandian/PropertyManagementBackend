@@ -2,38 +2,18 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('quoted_unit_components', {
+    await queryInterface.createTable('master_pricing_component_mappings', {
       id: {
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
         allowNull: false,
-        primaryKey: true
-      },
-      quoted_unit_id: {
-        type: Sequelize.UUID,
-        allowNull: false,
-        references: {
-          model: 'quoted_units', 
-          key: 'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER
       },
       pricing_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: 'master_pricing_components', 
-          key: 'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
-      },
-      revenue_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'master_revenue_types', 
           key: 'id'
         },
         onUpdate: 'CASCADE',
@@ -48,27 +28,6 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
-      },
-      discount_type: {
-        type: Sequelize.ENUM('Percentage', 'Value'),
-        allowNull: true,
-        defaultValue: 'Percentage', 
-      },
-      discount_value: {
-        type: Sequelize.INTEGER,
-        allowNull: true
-      },
-      item_unit_price: {
-        type: Sequelize.INTEGER,
-        allowNull: true
-      },
-      quantity: {
-        type: Sequelize.INTEGER,
-        allowNull: true
-      },
-      chargeable: {
-        type: Sequelize.BOOLEAN,
-        allowNull: true
       },
       is_active: {
         type: Sequelize.BOOLEAN,
@@ -121,6 +80,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('quoted_unit_components');
+    await queryInterface.dropTable('master_pricing_component_mappings');
   }
 };

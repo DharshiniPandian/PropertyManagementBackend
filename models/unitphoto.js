@@ -48,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       allowNull: true,
       references: {
-        model: 'units', 
+        model: 'unit_details', 
         key: 'id'
       },
       onUpdate: 'CASCADE',
@@ -103,7 +103,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {
     sequelize,
-    modelName: 'UnitPhotoPhoto',
+    modelName: 'UnitPhoto',
     tableName: 'UnitPhoto_photos',
     timestamps: true,
     paranoid: true,
