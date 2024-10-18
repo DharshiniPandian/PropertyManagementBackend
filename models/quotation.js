@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       }); 
       Quotation.hasMany(models.QuotedUnit, {
         foreignKey: 'quotation_id',
-        as: 'quotation',
+        as: 'quoted_units',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       });
