@@ -3,6 +3,9 @@ const dotenv = require('dotenv')
 const sequelize = require('./config/db')
 const cors = require('cors')
 const masterRoutes = require('./src/routes/masterRoutes')
+const unitRoutes = require('./src/routes/unitRoutes')
+const pricingRoutes = require('./src/routes/pricingComponentRoutes')
+const quotationRoutes = require('./src/routes/quotationRoutes')
 
 dotenv.config()
 
@@ -20,6 +23,9 @@ app.use(cors({
 }))
 
 app.use('/master', masterRoutes)
+app.use('/unit', unitRoutes)
+app.use('/pricing', pricingRoutes)
+app.use('/quotation', quotationRoutes)
 
 app.get('/', (req, res) => {
     res.send('request received')

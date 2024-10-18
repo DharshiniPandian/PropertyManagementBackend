@@ -48,6 +48,12 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       }); 
+
+      QuotedUnit.hasMany(models.QuotedUnitComponent, {
+        foreignKey: 'quoted_unit_id',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
     }
   }
   QuotedUnit.init({
@@ -72,7 +78,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       allowNull: true,
       references: {
-        model: 'QuotedUnits', 
+        model: 'unit_details', 
         key: 'id'
       },
       onUpdate: 'CASCADE',
