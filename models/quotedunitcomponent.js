@@ -107,7 +107,7 @@ module.exports = (sequelize, DataTypes) => {
         isIn: [['Percentage', 'Value']], 
       }
     },   
-    discount_VALUE: {
+    discount_value: {
       type: DataTypes.INTEGER,
       allowNull: true,
       validate: {

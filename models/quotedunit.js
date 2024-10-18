@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASCADE',
       }); 
 
-      QuotedUnit.hasMany(models.QuotedUnitAddOn, {
+      QuotedUnit.hasMany(models.QuotedUnitAddon, {
         foreignKey: 'quoted_unit_id',
         as: 'quoted_unit',
         onUpdate: 'CASCADE',

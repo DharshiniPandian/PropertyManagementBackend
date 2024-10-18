@@ -4,6 +4,9 @@ const { Quotation, QuotedUnit, QuotedUnitAddon, QuotedUnitComponent, sequelize }
 const store_quotation = async (req, res) => {
     const t = await sequelize.transaction();
     try {
+        console.log(require('../../../models'));
+
+        console.log(QuotedUnit, Quotation, QuotedUnitAddon, QuotedUnitComponent)
         const { created_by, quoted_units } = req.body;
 
         const quotation = await Quotation.create({
@@ -21,7 +24,7 @@ const store_quotation = async (req, res) => {
 
             console.log(quotedUnit)
 
-            console.log(unit.addons)
+            console.log(QuotedUnitAddon)
 
             if (unit.addons) {
                 for (const addon of unit.addons) {
@@ -31,7 +34,7 @@ const store_quotation = async (req, res) => {
                         utility_id: addon.utility_id,
                         discount_type: addon.discount_type,
                         discount_value: addon.discount_value,
-                        created_by
+                        created_by: quotedUnit.created_by
                     }, { transaction: t });
                 }
             }

@@ -1,6 +1,6 @@
 const {MasterPricingRevenueMapping, MasterRevenueType, MasterPricingComponentMapping, MasterComponentBasedOn} = require('../../../models')
 
-// to get amenities under a unit
+// to get revenue types based on pricing component
 const get_pricing_components_revenue = async (req, res) => {
     const {id} = req.params
     try{
@@ -23,6 +23,7 @@ const get_pricing_components_revenue = async (req, res) => {
     }
 }
 
+// to get component based on pricing component
 const get_pricing_components_based_on = async (req, res) => {
   const {id} = req.params
   try{

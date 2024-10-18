@@ -220,21 +220,21 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASCADE',
       });
 
-      User.hasMany(models.QuotedUnitAddOn, {
+      User.hasMany(models.QuotedUnitAddon, {
         foreignKey: 'created_by',
         as: 'quoted_unitaddon_createdby',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       });
 
-      User.hasMany(models.QuotedUnitAddOn, {
+      User.hasMany(models.QuotedUnitAddon, {
         foreignKey: 'updated_by',
         as: 'quoted_unitaddon_updatedby',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       });
 
-      User.hasMany(models.QuotedUnitAddOn, {
+      User.hasMany(models.QuotedUnitAddon, {
         foreignKey: 'deleted_by',
         as: 'quoted_unitaddon_deletedby',
         onUpdate: 'CASCADE',
