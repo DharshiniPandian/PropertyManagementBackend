@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASCADE',
       }); 
 
-      MasterAmenity.hasMany(models.QuotedUnitAddOn, {
+      MasterAmenity.hasMany(models.QuotedUnitAddon, {
         foreignKey: 'amenity_id',
         as: 'quoted_unit_amenity',
         onUpdate: 'CASCADE',
