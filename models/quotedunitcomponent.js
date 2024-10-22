@@ -113,7 +113,19 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         isInt: true,
       }
-    },   
+    },  
+    item_unit_price: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    quantity: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    chargeable: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true
+    }, 
     is_active: {
       type: DataTypes.BOOLEAN,
       defaultValue: true,
