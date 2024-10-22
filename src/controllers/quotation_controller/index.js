@@ -41,6 +41,7 @@ const store_quotation = async (req, res) => {
 
             if (unit.components) {
                 for (const component of unit.components) {
+                    console.log(component)
                     await QuotedUnitComponent.create({
                         quoted_unit_id: quotedUnit.id,
                         pricing_id: component.pricing_id,
@@ -48,8 +49,8 @@ const store_quotation = async (req, res) => {
                         component_id: component.component_id,
                         discount_type: component.discount_type,
                         discount_value: component.discount_value,
-                        item_unit_price: component.item_unit_price,
-                        quantity: component.quantity,
+                        item_unit_price: parseFloat(component.item_unit_price),
+                        quantity: parseInt(component.quantity),
                         chargeable: component.chargeable,
                         created_by
                     }, { transaction: t });
